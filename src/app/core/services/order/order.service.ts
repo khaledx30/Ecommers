@@ -11,10 +11,10 @@ export class OrderService {
   private readonly baseUrl = environment.baseUrl;
   private readonly myToken = localStorage.getItem('userToken');
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private _HttpClient: HttpClient) {}
 
   getUserOrder(id: string): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/api/v1/orders/user/${id}`, {
+    return this._HttpClient.get(`${this.baseUrl}/api/v1/orders/user/${id}`, {
       headers: {
         token: this.myToken!,
       },
@@ -24,7 +24,7 @@ export class OrderService {
     });
   }
   checkOutSession(id: string, data: object): Observable<any> {
-    return this.httpClient.post(
+    return this._HttpClient.post(
       environment.baseUrl +
         `/api/v1/orders/checkout-session/${id}?url=http://localhost:4200`,
       {

@@ -7,32 +7,32 @@ import { environment } from '../../enviroments/environment';
 })
 export class CartService {
   cartNumber: WritableSignal<number> = signal(0);
-  constructor(private httpClient: HttpClient) {}
+  constructor(private _HttpClient: HttpClient) {}
   getToken(): string {
     return localStorage.getItem('userToken')!;
   }
 
   addProductToCart(id: string): Observable<any> {
-    return this.httpClient.post(
+    return this._HttpClient.post(
       `${environment.baseUrl}/api/v1/cart`,
       { productId: id },
       { headers: { token: this.getToken() } }
     );
   }
   getLoggedUserCart(): Observable<any> {
-    return this.httpClient.get(`${environment.baseUrl}/api/v1/cart`, {
+    return this._HttpClient.get(`${environment.baseUrl}/api/v1/cart`, {
       headers: {
         token: this.getToken(),
       },
     });
   }
   removeSpecifcCartItem(id: string): Observable<any> {
-    return this.httpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`, {
+    return this._HttpClient.delete(`${environment.baseUrl}/api/v1/cart/${id}`, {
       headers: { token: this.getToken() },
     });
   }
   updateCartProduct(id: string, newcount: number): Observable<any> {
-    return this.httpClient.put(
+    return this._HttpClient.put(
       `${environment.baseUrl}/api/v1/cart/${id}`,
       {
         count: newcount,
@@ -42,7 +42,7 @@ export class CartService {
   }
 
   clearCart(): Observable<any> {
-    return this.httpClient
+    return this._HttpClient
       .delete(`${environment.baseUrl}/api/v1/cart`, {
         headers: { token: this.getToken() },
       })

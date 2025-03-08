@@ -8,14 +8,14 @@ export class WishlistService {
   wishlistnumbrs = signal<number>(0);
   wishlistDetails = signal<any[]>([]);
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private _HttpClient: HttpClient) {}
 
   getToken(): string {
     return localStorage.getItem('userToken')!;
   }
 
   addProductToWishlist(id: string): Observable<any> {
-    return this.httpClient.post(
+    return this._HttpClient.post(
       `${environment.baseUrl}/api/v1/wishlist`,
       { productId: id },
       { headers: { token: this.getToken() } }
@@ -23,13 +23,13 @@ export class WishlistService {
   }
 
   getLoggedUserWishlist(): Observable<any> {
-    return this.httpClient.get(`${environment.baseUrl}/api/v1/wishlist`, {
+    return this._HttpClient.get(`${environment.baseUrl}/api/v1/wishlist`, {
       headers: { token: this.getToken() },
     });
   }
 
   removeSpecifcWishlistItem(id: string): Observable<any> {
-    return this.httpClient.delete(
+    return this._HttpClient.delete(
       `${environment.baseUrl}/api/v1/wishlist/${id}`,
       { headers: { token: this.getToken() } }
     );

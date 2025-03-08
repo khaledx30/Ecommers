@@ -8,13 +8,13 @@ import { api_url } from '../../custom_injections/api_url';
 })
 export class ProductsService {
   constructor(
-    private httpClient: HttpClient,
+    private _HttpClient: HttpClient,
     @Inject(api_url) private apiPath: string
   ) {}
   getAllProducts(): Observable<any> {
-    return this.httpClient.get(this.apiPath + '/products');
+    return this._HttpClient.get(this.apiPath + '/products');
   }
   getSpecificProducts(id: string): Observable<any> {
-    return this.httpClient.get(this.apiPath + `/products/${id}`);
+    return this._HttpClient.get(this.apiPath + `/products/${id}`);
   }
 }
